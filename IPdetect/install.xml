@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<name>Ip detect</name>
+	<code>Ip detect</code>
+	<version>1.1.1</version>
+	<author>VB</author>
+	<link></link>	
+	
+	
+	
+	<file path="system/library/session.php">   		
+		<operation> 
+            <search><![CDATA[                  
+            	$this->data =& $_SESSION[$key];
+                ]]></search>
+            <add position="after"><![CDATA[
+
+        
+    
+if(!isset($this->data['language'])&&!isset(  $this->data['currency'])) {
+include('system/library/geoip.inc');
+    if (isset($HTTP_SERVER_VARS["HTTP_X_FORWARDED_FOR"]) && $HTTP_SERVER_VARS["HTTP_X_FORWARDED_FOR"]) {
+        $ip = $HTTP_SERVER_VARS["HTTP_X_FORWARDED_FOR"];
+    } elseif (isset($HTTP_SERVER_VARS["HTTP_CLIENT_IP"]) && $HTTP_SERVER_VARS["HTTP_CLIENT_IP"]) {
+        $ip = $HTTP_SERVER_VARS["HTTP_CLIENT_IP"];
+    } elseif (isset($HTTP_SERVER_VARS["REMOTE_ADDR"]) && $HTTP_SERVER_VARS["REMOTE_ADDR"]) {
+        $ip = $HTTP_SERVER_VARS["REMOTE_ADDR"];
+    } elseif (getenv("HTTP_X_FORWARDED_FOR")) {
+        $ip = getenv("HTTP_X_FORWARDED_FOR");
+    } elseif (getenv("HTTP_CLIENT_IP")) {
+        $ip = getenv("HTTP_CLIENT_IP");
+    } elseif (getenv("REMOTE_ADDR")) {
+        $ip = getenv("REMOTE_ADDR");
+    } else {
+        $ip = "";
+    }
+    $ip = "65.39.193.20";
+    $gi = geoip_open('system/library/GeoIP.dat', GEOIP_STANDARD);
+    $countryCode = geoip_country_code_by_addr($gi, $ip);
+
+    geoip_close($gi);
+    if ($countryCode == "BG") {
+        $this->data['language'] = 'bg';
+        
+		$this->data['currency'] = 'BGN';
+    } else {
+        $this->data['language'] = 'en';
+        $this->data['currency'] = 'EUR';
+   //  var_dump($this->data['language']);
+    }
+    //  var_dump($this->session->data['currency']);
+    // var_dump($this->session->data['language']);
+}
+
+			]]></add>
+			
+			
+			
+			
+			
+        </operation>	
+	
+	
+	
+	
+	</file>
+	
+	
+</modification>

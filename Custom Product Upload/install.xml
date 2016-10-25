@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<name>Product custom description</name>
+	<code>Product custom description</code>
+	<version>1.1.1</version>
+	<author>VB</author>
+	<link></link>	
+	
+	
+
+	 
+	
+	
+	
+	<file path="admin/view/template/catalog/product_form.tpl">   		
+		<operation> 
+            <search><![CDATA[ 
+                      <textarea name="product_description[<?php echo $language['language_id']; ?>][description]" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>"><?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['description'] : ''; ?></textarea>
+                 
+                ]]></search>
+            <add position="after" offset="2"><![CDATA[ <div style="display: none" class="form-group customShortDes">
+                    <div class="col-md-12">
+                      <label class="col-sm-2 control-label" >Custom line</label>
+                      <div class="col-sm-8">
+                        <div contenteditable="true" id="inputShortLine"  style="height: 25px" class="input col-md-12"  ></div>
+                      </div>
+                    </div>
+                    <button data-val='' onclick="getCustomShortDescription()" type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#previewShortDescModal">Add/Preview</button>
+
+                  </div>
+                  <div >
+                    <div class="modal fade" id="myModal" role="dialog">
+                      <div class="modal-dialog modal-lg">
+                        <div  class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                          </div>
+                          <div style="width: 100%;height: 100%;overflow: hidden" class="modal-body " id="dirContent">
+                          </div>
+                          <div class="pagination modal-footer col-md-12">
+                            <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div >
+                    <div class="modal fade" id="previewModal" role="dialog">
+                      <div class="modal-dialog modal-lg">
+                        <div  class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="previewmodal-title"Custom Description</h4>
+                          </div>
+                          <div style="width: 100%;height: 100%;overflow: hidden" class="modal-body " id="preview">
+                          </div>
+                          <div class=" modal-footer col-md-12">
+                            <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div >
+                    <div class="modal fade" id="previewShortDescModal" role="dialog">
+                      <div class="modal-dialog modal-lg">
+                        <div  class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="previewmodal-title">Custom Short Description</h4>
+                          </div>
+                          <div style="width: 100%;height: 100%;overflow: hidden" class="modal-body " id="previewShort">
+                            <div class="shortDescriptionDiv"></div>
+                          </div>
+                          <div class=" modal-footer col-md-12">
+                            <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>]]></add>
+        </operation>		
+		<operation> 
+            <search><![CDATA[<label class="col-sm-2 control-label" for="input-description<?php echo $language['language_id']; ?>"><?php echo $entry_description; ?></label>]]></search>
+            <add position="before" offset="1" ><![CDATA[   <div class="col-sm-12">  <button data-val='' onclick="addDescription()" type="button" class="btn btn-info btn-md" >Add Custom Description</button></div>
+                  <div style="display: none" class="col-sm-2 form-group customDes">
+
+
+                      <div class="col-sm-12">
+                        <div contenteditable="true"  placeholder="Custom title" id="inputTitle"  style="height: 25px" class="input col-md-12"  ></div>
+                      </div>
+
+
+
+                    <div class="col-sm-12" >
+                      <div contenteditable="true" placeholder="Custom description" id="inputDesc" style="height: 200px" class="input col-md-12"  ></div>
+                    </div>
+                      <div class="col-sm-12" >
+                      <button data-val='' onclick="openDir(this)" type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Add image</button>
+                      <button data-val='' onclick="getCustomDEscription()" type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#previewModal">Add/Preview</button>
+                      </div>
+                      </div> ]]></add>
+        </operation>	
+		<operation> 
+            <search><![CDATA[<?php echo $footer; ?>]]></search>
+            <add position="after" ><![CDATA[ <script src="view/javascript/paggination/js/paginate.js" type="text/javascript"></script>
+<script src="view/javascript/paggination/js/custom.js" type="text/javascript"></script>   ]]></add>
+        </operation>	
+	</file>
+	<file path="admin/view/template/common/header.tpl">   		
+		<operation> 
+            <search><![CDATA[<script src="view/javascript/jquery/datetimepicker/moment.js" type="text/javascript"></script>]]></search>
+            <add position="after" ><![CDATA[     <link href="view/stylesheet/customDesc.css" type="text/css" rel="stylesheet" /> ]]></add>
+	  </operation>	
+	</file>
+	
+</modification>
